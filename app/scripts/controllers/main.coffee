@@ -9,6 +9,8 @@
 ###
 angular.module('getRichFrontendApp')
   .controller 'MainCtrl', ($scope) ->
+    $scope.setData = () ->
+      $scope.data.datasets[0].data[2] = Math.random()*100
 
     # Chart.js Data
     $scope.data =
@@ -63,7 +65,7 @@ angular.module('getRichFrontendApp')
 
     # Chart.js Options
     $scope.options =
-
+      animation: false
       # Sets the chart to be responsive
       responsive: true
 
