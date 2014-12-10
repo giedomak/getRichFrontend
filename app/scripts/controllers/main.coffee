@@ -12,25 +12,30 @@ angular.module('getRichFrontendApp')
     $scope.setData = () ->
       $scope.data.datasets[0].data[2] = Math.random()*100
 
-    input = [[0.04812567421790723, 0.046735606293300536], [0.007955771305285868, 0.017716118903791683], [0.04320388349514563, 0.034032968158083335], [0.01709816612729234, 0.028069007883689986], [0.1516518338727077, 0.18724190300672325], [0.05149676375404532, 0.04628510972321754], [0.017981391585760516, 0.01544998464216238], [0.01766450916936354, 0.017322787618170035]]
+    input = [[0.042130459665050336, 0.04256220592928567], [0.010489882854100114, 0.014578843491695777], [0.03861954078790033, 0.033416373961073886], [0.02448007926650662, 0.026569257105270545], [0.1646477557794552, 0.17597038543212343], [0.045419938246979694, 0.04604555898472824], [0.015817824534461563, 0.01564482083121349], [0.015103162467690506, 0.017483156126393243]]
 
     labels = ['9/30', '9/29']
+
+    emotions = 'joy,trust,fear,surprise,sadness,disgust,anger,anticipation'.split(',')
 
     # Chart.js Data
     $scope.data =
       labels: labels
       datasets: []
 
-    for emotion in input
+    for emotion, index in input
+      color1 = Math.floor(Math.random()*100+150)
+      color2 = Math.floor(Math.random()*100+150)
+      color3 = Math.floor(Math.random()*100+150)
       dataset =
         {
-          label: "joy"
-          fillColor: "rgba(220,220,220,0.2)"
-          strokeColor: "rgba(220,220,220,1)"
-          pointColor: "rgba(220,220,220,1)"
+          label: emotions[index]
+          fillColor: "rgba("+color1+","+color2+","+color3+",0.2)"
+          strokeColor: "rgba("+color1+","+color2+","+color3+",1)"
+          pointColor: "rgba("+color1+","+color2+","+color3+",1)"
           pointStrokeColor: "#fff"
           pointHighlightFill: "#fff"
-          pointHighlightStroke: "rgba(220,220,220,1)"
+          pointHighlightStroke: "rgba("+color1+","+color2+","+color3+",1)"
           data: emotion
         }
       $scope.data.datasets.push dataset
