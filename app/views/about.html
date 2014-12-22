@@ -1,13 +1,5 @@
-<div ng-controller="AboutCtrl">
-    <nvd3-line-chart
-        data="data"
-        showXAxis="true"
-        showYAxis="true"
-        tooltips="true"
-        interactive="true"
-        width="550"
-        height="160">
-    </nvd3-line-chart>
+<div ng-controller = "AboutCtrl">
+  <svg width = "500" heigt = "500">
+    <circle ng-repeat="item in model.test" ng-attr-cx="{{item}}" cy="100" r="25"/>
+  </svg>
 </div>
-<script>
-</script>
