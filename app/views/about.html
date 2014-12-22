@@ -1,5 +1,6 @@
 <div ng-controller = "AboutCtrl">
-  <svg width = "500" heigt = "500">
-    <circle ng-repeat="item in model.test" ng-attr-cx="{{item}}" cy="100" r="25"/>
+  <svg>
+    <rect ng-repeat="item in model.test" ng-attr-x="{{item - 25}}" y="75" width="50" height="50" fill="none" stroke = "blue" />
+    <circle ng-repeat="item in model.test" ng-attr-cx="{{item}}" cy="100" r="25"></circle>
   </svg>
 </div>
