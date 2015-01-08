@@ -62,8 +62,10 @@
       m.parentNode.insertBefore(a, m)
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', 'UA-58276732-1');
-    ga('send', 'pageview');
+    ga('create', 'UA-58276732-1', 'auto');
+
+    // Plugin will track for us
+    // ga('send', 'pageview');
   </script>
 
   <!-- build:js(.) scripts/oldieshim.js -->

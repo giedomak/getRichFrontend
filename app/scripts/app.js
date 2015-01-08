@@ -8,7 +8,9 @@
   *
   * Main module of the application.
  */
-var app = angular.module('getRichFrontendApp', ['n3-line-chart', 'ngAnimate', 'ngAria', 'ngCookies', 'ngMessages', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'tc.chartjs']);
+var app = angular.module('getRichFrontendApp', ['n3-line-chart', 'ngAnimate',
+'ngAria', 'ngCookies', 'ngMessages', 'ngResource', 'ngRoute', 'ngSanitize',
+'ngTouch', 'tc.chartjs', 'angulartics', 'angulartics.google.analytics']);
 
 app.config(function($routeProvider) {
   return $routeProvider.when('/', {
