@@ -1,39 +1,38 @@
-angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope, $scope) {
+angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope, $scope, $http) {
   $rootScope.tab = "home"
 
-  var d1 = new Date("September 1, 2013");
-  var d2 = new Date("September 2, 2013");
-  var d3 = new Date("September 3, 2013");
-  var d4 = new Date("September 4, 2013");
-  var d5 = new Date("September 5, 2013");
-  var d6 = new Date("September 6, 2013");
-  var d7 = new Date("September 7, 2013");
-  var d8 = new Date("September 8, 2013");
-  var d9 = new Date("September 9, 2013");
-  var d10 = new Date("September 10, 2013");
-  var d11 = new Date("September 11, 2013");
-  var d12 = new Date("September 12, 2013");
-  var d13 = new Date("September 13, 2013");
-  var d14 = new Date("September 14, 2013");
-  var d15 = new Date("September 15, 2013");
-  var d16 = new Date("September 16, 2013");
-  var d17 = new Date("September 17, 2013");
-  var d18 = new Date("September 18, 2013");
-  var d19 = new Date("September 19, 2013");
-  var d20 = new Date("September 20, 2013");
-  var d21 = new Date("September 21, 2013");
-  var d22 = new Date("September 22, 2013");
-  var d23 = new Date("September 23, 2013");
-  var d24 = new Date("September 24, 2013");
-  var d25 = new Date("September 25, 2013");
-  var d26 = new Date("September 26, 2013");
-  var d27 = new Date("September 27, 2013");
-  var d28 = new Date("September 28, 2013");
-  var d29 = new Date("September 29, 2013");
-  var d30 = new Date("September 30, 2013");
+  var TwitterMoods;
+  $http.get("http://www.w3schools.com/website/Customers_JSON.php").success(function(response) 
+    {
+      TwitterMoods = response;
+      $scope.names = response;
+    });
 
-  $scope.data = [{
-    x: d1,
+
+//we add data to the scope, we have the twitter mood data taken from a json file
+//so we linked the 8 moods to there corresponding date allong with the Stock data of that day.
+  $scope.data = [];
+  for( i = 0; i < 31; i++ )
+  {
+    $scope.data.push(
+    {
+      x: new Date("September " + (i+1) + ", 2013"),
+      joy: 0.03990118307884121,
+      trust: 0.013207076943404188,
+      fear: 0.03334853272134506,
+      surprise: 0.025911079980001014,
+      sadness: 0.16860026845044712,
+      disgust: 0.047834491900514774,
+      anger: 0.015325660099098836,
+      anticipation: 0.015801788333754185,
+      Stock: 70.31
+    });
+  }
+  /*
+
+  $scope.data = [
+  {
+    x: new Date("September 1, 2013"),
     joy: 0.03990118307884121,
     trust: 0.013207076943404188,
     fear: 0.03334853272134506,
@@ -44,7 +43,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.015801788333754185,
     Stock: 70.31
   }, {
-    x: d2,
+    x: new Date("September 2, 2013"),
     joy: 0.03765603839544278,
     trust: 0.01274426132197808,
     fear: 0.03641292481622806,
@@ -55,7 +54,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.01681033197085552,
     Stock: 70.31
   }, {
-    x: d3,
+    x: new Date("September 3, 2013"),
     joy: 0.040229842907979825,
     trust: 0.01159943666015384,
     fear: 0.0368711555205363,
@@ -66,7 +65,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.01669804777387676,
     Stock: 70.31
   }, {
-    x: d4,
+    x: new Date("September 4, 2013"),
     joy: 0.04565680785423933,
     trust: 0.010818991521745975,
     fear: 0.03641444059086223,
@@ -77,7 +76,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.016581401527249528,
     Stock: 70.84
   }, {
-    x: d5,
+    x: new Date("September 5, 2013"),
     joy: 0.03951102931734034,
     trust: 0.010540004679228667,
     fear: 0.03765801918788235,
@@ -87,8 +86,9 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anger: 0.01486925360683054,
     anticipation: 0.016257305815242633,
     Stock: 70.75
-  }, {
-    x: d6,
+  }, 
+{
+    x: new Date("September 6, 2013"),
     joy: 0.04051411721392645,
     trust: 0.010642217564708399,
     fear: 0.035499243631881734,
@@ -99,7 +99,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.01624688965502304,
     Stock: 70.28
   }, {
-    x: d7,
+    x: new Date("September 7, 2013"),
     joy: 0.03787326993478024,
     trust: 0.01112472444173593,
     fear: 0.03552608517672394,
@@ -110,7 +110,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.019642302936206824,
     Stock: 71.14
   }, {
-    x: d8,
+    x: new Date("September 8, 2013"),
     joy: 0.03803557151644164,
     trust: 0.012780039121935375,
     fear: 0.03743150705343009,
@@ -121,7 +121,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.020159346911896,
     Stock: 71.14
   }, {
-    x: d9,
+    x: new Date("September 9, 2013"),
     joy: 0.03841630307000448,
     trust: 0.01272904825013273,
     fear: 0.03810303775601571,
@@ -132,7 +132,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.019049517482531687,
     Stock: 71.14
   }, {
-    x: d10,
+    x: new Date("September 10, 2013"),
     joy: 0.03782577788820997,
     trust: 0.011270925488597754,
     fear: 0.034814049944535845,
@@ -143,7 +143,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.017902132607679234,
     Stock: 72.89
   }, {
-    x: d11,
+    x: new Date("September 11, 2013"),
     joy: 0.04339390687794608,
     trust: 0.011273232521246427,
     fear: 0.03668451957685485,
@@ -154,7 +154,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.017841256136612124,
     Stock: 74.03
   }, {
-    x: d12,
+    x: new Date("September 12, 2013"),
     joy: 0.0376312860532947,
     trust: 0.01027200843829804,
     fear: 0.0355058578033389,
@@ -165,7 +165,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.01614552405648308,
     Stock: 74.31
   }, {
-    x: d13,
+    x: new Date("September 13, 2013"),
     joy: 0.03359771963223802,
     trust: 0.010059025332666713,
     fear: 0.033681246287455856,
@@ -176,7 +176,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.017840041453241,
     Stock: 74.21
   }, {
-    x: d14,
+    x: new Date("September 14, 2013"),
     joy: 0.03612800806676917,
     trust: 0.011024924820028164,
     fear: 0.032547588623510676,
@@ -187,7 +187,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.017429847512702396,
     Stock: 73.89
   }, {
-    x: d15,
+    x: new Date("September 15, 2013"),
     joy: 0.03887191346276788,
     trust: 0.011615994144003447,
     fear: 0.03607709680814943,
@@ -198,7 +198,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.016349573231170943,
     Stock: 73.89
   }, {
-    x: d16,
+    x: new Date("September 16, 2013"),
     joy: 0.037699356365101924,
     trust: 0.011608164125321464,
     fear: 0.03496256916002998,
@@ -209,7 +209,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.01552183225181753,
     Stock: 73.89
   }, {
-    x: d17,
+    x: new Date("September 17, 2013"),
     joy: 0.0359872392366991,
     trust: 0.01191556205449385,
     fear: 0.0333190184411901,
@@ -220,7 +220,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.015309171855504582,
     Stock: 74.67
   }, {
-    x: d18,
+    x: new Date("September 18, 2013"),
     joy: 0.03632780973428463,
     trust: 0.011428267720810346,
     fear: 0.03645862247943793,
@@ -231,7 +231,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.01678242800050584,
     Stock: 75.94
   }, {
-    x: d19,
+    x: new Date("September 19, 2013"),
     joy: 0.03874396969114345,
     trust: 0.012498646515346275,
     fear: 0.03478057104402993,
@@ -242,7 +242,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.016339060133510067,
     Stock: 74.98
   }, {
-    x: d20,
+    x: new Date("September 20, 2013"),
     joy: 0.03816456770101316,
     trust: 0.011193668099874128,
     fear: 0.033200336153330706,
@@ -253,7 +253,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.01609693232865554,
     Stock: 74.75
   }, {
-    x: d21,
+    x: new Date("September 21, 2013"),
     joy: 0.03811441763736462,
     trust: 0.011569346297845872,
     fear: 0.03492842467031559,
@@ -264,7 +264,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.020685327886022103,
     Stock: 74.00
   }, {
-    x: d22,
+    x: new Date("September 22, 2013"),
     joy: 0.04070051854524684,
     trust: 0.011094318358649062,
     fear: 0.03540412956590881,
@@ -275,7 +275,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.01783498327576625,
     Stock: 74.00
   }, {
-    x: d23,
+    x: new Date("September 23, 2013"),
     joy: 0.038321475045997686,
     trust: 0.011555460458719101,
     fear: 0.03480402167729398,
@@ -286,7 +286,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.017030436533627295,
     Stock: 74.00
   }, {
-    x: d24,
+    x: new Date("September 24, 2013"),
     joy: 0.039302676956999724,
     trust: 0.0143468712376559,
     fear: 0.03610532235164405,
@@ -297,7 +297,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.016440842202076308,
     Stock: 75.17
   }, {
-    x: d25,
+    x: new Date("September 25, 2013"),
     joy: 0.037975141138447306,
     trust: 0.012212796187641565,
     fear: 0.03551756202602854,
@@ -308,7 +308,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.016713526042733566,
     Stock: 74.97
   }, {
-    x: d26,
+    x: new Date("September 26, 2013"),
     joy: 0.03726251417040181,
     trust: 0.012859698402351181,
     fear: 0.03404575937548947,
@@ -319,7 +319,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.017589112908174394,
     Stock: 75.79
   }, {
-    x: d27,
+    x: new Date("September 27, 2013"),
     joy: 0.034229604414740065,
     trust: 0.01461369728378951,
     fear: 0.031590734231117,
@@ -330,7 +330,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.016617936263663168,
     Stock: 75.94
   }, {
-    x: d28,
+    x: new Date("September 28, 2013"),
     joy: 0.03593865683679761,
     trust: 0.01268762622990204,
     fear: 0.03288831084995285,
@@ -341,7 +341,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.02017314410309363,
     Stock: 75.59
   }, {
-    x: d29,
+    x: new Date("September 29, 2013"),
     joy: 0.04120069429325448,
     trust: 0.014729562379088706,
     fear: 0.03462253563843722,
@@ -352,7 +352,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     anticipation: 0.017619926704136566,
     Stock: 75.59
   }, {
-    x: d30,
+    x: new Date("September 30, 2013"),
     joy: 0.04168339996088416,
     trust: 0.010946029207351975,
     fear: 0.03483278563899458,
@@ -364,7 +364,9 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     Stock: 75.59
   }];
 
-  // Column
+  */
+  //The Scope options, here we define how it looks and we define the 2 different y value graphs of the stock and of the moods
+  //we also choose the line style, for instance the line of the stock will be made black and thicker so it's more noticable.
   $scope.options = {
     axes: {
       x: {
@@ -427,3 +429,9 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     }
   }
 });
+
+
+function MainCtrl($scope,$http) 
+{
+  
+}
