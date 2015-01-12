@@ -46,7 +46,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
         type: "linear"
       }
     },
-    lineMode: 'cardinal',
+    lineMode: undefined,
     tension: 0.3,
     series: [{
       y: 'joy',
