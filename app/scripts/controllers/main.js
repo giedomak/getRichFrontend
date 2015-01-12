@@ -7,12 +7,17 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
       //we add data to the scope, we have the twitter mood data taken from a json file
       //so we linked the 8 moods to there corresponding date allong with the Stock data of that day.
       $scope.data = [];
-
+      var date;
+      var dateArray;
+      var newDate;
       for( i = 0; i < response.length; i++ )
       {
+        date = response[i].x;
+        dateArray = date.split("/");
+        newDate = (dateArray[1] + "/" + dateArray[0] + "/" + dateArray[2] );
         $scope.data.push(
         {
-          x: new Date(response[i].x),
+          x: new Date(newDate),
           joy: parseFloat(response[i].joy),
           trust: parseFloat(response[i].trust),
           fear: parseFloat(response[i].fear),
