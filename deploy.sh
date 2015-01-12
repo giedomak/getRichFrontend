@@ -4,7 +4,7 @@ echo "--> building the app"
 grunt build
 
 echo "--> commiting the dist"
-git add dist
+git add dist -A
 git commit -m "new dist"
 
 echo "--> pushing to gh-pages"
