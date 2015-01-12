@@ -53,10 +53,10 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
           Stock: parseFloat(response[i].Stock),
           Prediction: parseFloat(response[i].prediction)
         });
-        
+
         $scope.totaltweets.push(
         {
-          x: new Date(newDate),
+          x: d[i],
           total: parseInt(response[i].total)
         });
       }
