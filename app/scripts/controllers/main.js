@@ -2,7 +2,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
   $rootScope.tab = "home"
 
 
-  $http.get("http://www.giedomak.nl:8008/data").success(function(response) 
+  $http.get("http://www.giedomak.nl:8008/data").success(function(response)
     {
       //we add data to the scope, we have the twitter mood data taken from a json file
       //so we linked the 8 moods to there corresponding date allong with the Stock data of that day.
@@ -10,7 +10,8 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
       var date;
       var dateArray;
       var newDate;
-      for( i = 0; i < response.length; i++ )
+
+      for(var i = 0; i < response.length; i++ )
       {
         date = response[i].x;
         dateArray = date.split("/");
