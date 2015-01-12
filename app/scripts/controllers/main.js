@@ -6,12 +6,17 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     {
       //we add data to the scope, we have the twitter mood data taken from a json file
       //so we linked the 8 moods to there corresponding date allong with the Stock data of that day.
+<<<<<<< HEAD
 
       var date;
       var dateArray;
       var newDate;
       var d = [];
       $scope.data = [];
+=======
+      $scope.data = [];
+      $scope.totaltweets = [];
+>>>>>>> 69586ba770767949df5bdbfdf3e168b07bd69a46
 
       response.sort(function(a,b) {
         a_date = a.x.split("/");
@@ -24,6 +29,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
 
       for( var k = 0; k < response.length; k++ )
       {
+<<<<<<< HEAD
         date = response[k].x;
         dateArray = date.split("/");
         newDate = (dateArray[1] + "/" + dateArray[0] + "/" + dateArray[2] );
@@ -60,6 +66,11 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
             response[i].Stock = response[i-1].Stock;
           }
         }
+=======
+        var date = response[i].x;
+        var dateArray = date.split("/");
+        var newDate = (dateArray[1] + "/" + dateArray[0] + "/" + dateArray[2] );
+>>>>>>> 69586ba770767949df5bdbfdf3e168b07bd69a46
         $scope.data.push(
         {
           x: d[i],
@@ -73,6 +84,11 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
           anticipation: parseFloat(response[i].anticipation),
           Stock: parseFloat(response[i].Stock),
           Prediction: parseFloat(response[i].prediction)
+        });
+        $scope.totaltweets.push(
+        {
+          x: new Date(newDate),
+          total: parseInt(response[i].total)
         });
       }
     });
