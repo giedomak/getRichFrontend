@@ -14,15 +14,10 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
       $scope.totaltweets = [];
 
       response.sort(function(a,b) {
-        var a_date;
-        var b_date;
-        var new_a_date;
-        var new_b_date;
-
-        a_date = a.x.split("/");
-        new_a_date = new Date(a_date[1] + "/" + a_date[0] + "/" + a_date[2] );
-        b_date = b.x.split("/");
-        new_b_date = new Date(b_date[1] + "/" + b_date[0] + "/" + b_date[2] );
+        var a_date = a.x.split("/");
+        var new_a_date = new Date(a_date[1] + "/" + a_date[0] + "/" + a_date[2] );
+        var b_date = b.x.split("/");
+        var new_b_date = new Date(b_date[1] + "/" + b_date[0] + "/" + b_date[2] );
         return (new_a_date.valueOf() - new_b_date.valueOf());
       });
 
