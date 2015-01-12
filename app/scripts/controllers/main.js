@@ -29,6 +29,10 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
         d[k] = new Date(newDate);
       }
 
+      if( parseFloat(response[0].Stock) == 0 )
+      {
+        response[0].Stock = 4527.69;
+      }
       for(var i = 0; i < response.length; i++ )
       {
         if( parseFloat( response[i].Stock) == 0 )
