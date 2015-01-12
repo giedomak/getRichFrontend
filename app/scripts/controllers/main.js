@@ -6,17 +6,12 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     {
       //we add data to the scope, we have the twitter mood data taken from a json file
       //so we linked the 8 moods to there corresponding date allong with the Stock data of that day.
-<<<<<<< HEAD
-
       var date;
       var dateArray;
       var newDate;
       var d = [];
       $scope.data = [];
-=======
-      $scope.data = [];
       $scope.totaltweets = [];
->>>>>>> 69586ba770767949df5bdbfdf3e168b07bd69a46
 
       response.sort(function(a,b) {
         a_date = a.x.split("/");
@@ -29,34 +24,12 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
 
       for( var k = 0; k < response.length; k++ )
       {
-<<<<<<< HEAD
         date = response[k].x;
         dateArray = date.split("/");
         newDate = (dateArray[1] + "/" + dateArray[0] + "/" + dateArray[2] );
         d[k] = new Date(newDate);
       }
 
-/*
-      for( var l = 0; l < response.length; l++ )
-      {
-        currentvalue = value[l];
-        for( var m = 0; m < response.length; m++ )
-        {
-          if( currentvalue > d[m] )
-          {
-            currentvalue = d[m];
-            arrayvalue = m;
-          }
-        }
-        TwitterMood[l] = response[arrayvalue];
-        console.log("smallest" +  );
-      }
-
-      TwitterMood[0] = response[3];
-      TwitterMood[1] = response[2];
-      TwitterMood[2] = response[1];
-      TwitterMood[3] = response[0];
-      */
       for(var i = 0; i < response.length; i++ )
       {
         if( parseFloat( response[i].Stock) == 0 )
@@ -66,11 +39,6 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
             response[i].Stock = response[i-1].Stock;
           }
         }
-=======
-        var date = response[i].x;
-        var dateArray = date.split("/");
-        var newDate = (dateArray[1] + "/" + dateArray[0] + "/" + dateArray[2] );
->>>>>>> 69586ba770767949df5bdbfdf3e168b07bd69a46
         $scope.data.push(
         {
           x: d[i],
@@ -85,6 +53,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
           Stock: parseFloat(response[i].Stock),
           Prediction: parseFloat(response[i].prediction)
         });
+        
         $scope.totaltweets.push(
         {
           x: new Date(newDate),
