@@ -7,6 +7,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
       //we add data to the scope, we have the twitter mood data taken from a json file
       //so we linked the 8 moods to there corresponding date allong with the Stock data of that day.
       $scope.data = [];
+      $scope.totaltweets = [];
 
       for(var i = 0; i < response.length; i++ )
       {
@@ -26,6 +27,11 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
           anticipation: parseFloat(response[i].anticipation),
           Stock: parseFloat(response[i].Stock),
           Prediction: parseFloat(response[i].prediction)
+        });
+        $scope.totaltweets.push(
+        {
+          x: new Date(newDate),
+          total: parseInt(response[i].total)
         });
       }
     });
