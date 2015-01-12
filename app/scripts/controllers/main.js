@@ -6,19 +6,63 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     {
       //we add data to the scope, we have the twitter mood data taken from a json file
       //so we linked the 8 moods to there corresponding date allong with the Stock data of that day.
-      $scope.data = [];
+
       var date;
       var dateArray;
       var newDate;
+      var d = [];
+      $scope.data = [];
 
-      for(var i = 0; i < response.length; i++ )
+      response.sort(function(a,b) {
+        a_date = a.x.split("/");
+        new_a_date = new Date(a_date[1] + "/" + a_date[0] + "/" + a_date[2] );
+        b_date = b.x.split("/");
+        new_b_date = new Date(b_date[1] + "/" + b_date[0] + "/" + b_date[2] );
+        return (new_a_date.valueOf() - new_b_date.valueOf());
+
+      });
+
+      for( var k = 0; k < response.length; k++ )
       {
-        date = response[i].x;
+        date = response[k].x;
         dateArray = date.split("/");
         newDate = (dateArray[1] + "/" + dateArray[0] + "/" + dateArray[2] );
+        d[k] = new Date(newDate);
+      }
+
+/*
+      for( var l = 0; l < response.length; l++ )
+      {
+        currentvalue = value[l];
+        for( var m = 0; m < response.length; m++ )
+        {
+          if( currentvalue > d[m] )
+          {
+            currentvalue = d[m];
+            arrayvalue = m;
+          }
+        }
+        TwitterMood[l] = response[arrayvalue];
+        console.log("smallest" +  );
+      }
+
+      TwitterMood[0] = response[3];
+      TwitterMood[1] = response[2];
+      TwitterMood[2] = response[1];
+      TwitterMood[3] = response[0];
+      */
+      for(var i = 0; i < response.length; i++ )
+      {
+        if( parseFloat( response[i].Stock) == 0 )
+        {
+          if( i != 0 )
+          {
+            response[i].Stock = response[i-1].Stock;
+          }
+        }
         $scope.data.push(
         {
-          x: new Date(newDate),
+          x: d[i],
           joy: parseFloat(response[i].joy),
           trust: parseFloat(response[i].trust),
           fear: parseFloat(response[i].fear),
@@ -43,13 +87,13 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
         key: "x"
       },
       y1: {
-        type: "linear"
+        type: "area",
       },
       y2: {
-        type: "linear"
+        type: "area"
       }
     },
-    lineMode: 'cardinal',
+    lineMode: undefined,
     tension: 0.3,
     series: [{
       y: 'joy',
@@ -84,23 +128,30 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
       axis: 'y1',
       type: 'area'
     }, {
+      stacks: [],
       y: 'Stock',
       axis: 'y2',
       thickness: "10px",
       color: "#000000",
-      type: 'area'
+      type: "line",
     }, {
+      stacks: [],
       y: 'Prediction',
       axis: 'y2',
       thickness: '10px',
       color: '#FF0000',
-      type: 'area'
+      type: "line",
     }],
     tooltip: {
       mode: "scrubber",
       formatter: function(x, y1, series) {
         return y1;
-      }
+      },
+
     }
   }
 });
+
+function sortFunction(a, b)
+{
+}
