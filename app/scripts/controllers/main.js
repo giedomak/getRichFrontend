@@ -9,6 +9,8 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
       var date;
       var dateArray;
       var newDate;
+      var a_date;
+      var b_date;
       var d = [];
       $scope.data = [];
       $scope.totaltweets = [];
