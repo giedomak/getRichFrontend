@@ -1,8 +1,9 @@
 angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope, $scope, $http) {
   $rootScope.tab = "home"
 
-
-  $http.get("http://www.giedomak.nl:8008/data").success(function(response)
+  $scope.updateChart = function() {
+    console.log("Updating chart");
+    $http.get("http://www.giedomak.nl:8008/data").success(function(response)
     {
       //we add data to the scope, we have the twitter mood data taken from a json file
       //so we linked the 8 moods to there corresponding date allong with the Stock data of that day.
@@ -12,6 +13,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
       var d = [];
       $scope.data = [];
       $scope.totaltweets = [];
+      $scope.totalanalysed = 0;
 
       response.sort(function(a,b) {
         var a_date = a.x.split("/");
@@ -62,8 +64,14 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
           x: d[i],
           total: parseInt(response[i].total)
         });
+        $scope.totalanalysed += parseInt(response[i].total);
       }
     });
+
+  };
+
+
+  $scope.updateChart();
 
 
   //The Scope options, here we define how it looks and we define the 2 different y value graphs of the stock and of the moods
