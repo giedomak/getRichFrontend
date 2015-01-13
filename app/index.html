@@ -30,6 +30,8 @@
       <ul class="nav nav-pills pull-right">
         <li ng-class="{'active': tab === 'home'}"><a ng-href="#/">Home</a>
         </li>
+        <li ng-class="{'active': tab === 'tweets'}"><a ng-href="#/tweets">Sander</a>
+        </li>
         <li ng-class="{'active': tab === 'about'}"><a ng-href="#/about">About</a>
         </li>
         <!--<li><a ng-href="#/">Contact</a></li>-->
@@ -136,8 +138,13 @@
   <script src="scripts/app.js"></script>
   <script src="scripts/controllers/main.js"></script>
   <script src="scripts/controllers/about.js"></script>
+  <script src="scripts/controllers/tweets.js"></script>
   <!-- endbuild -->
   <script>
+    function updateText(text)
+    {
+      document.getElementById("result").innerHTML =text;
+    }
   </script>
 
 </body>
