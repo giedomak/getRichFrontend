@@ -3,14 +3,12 @@ angular.module("getRichFrontendApp").controller('TweetCtrl', function($rootScope
 
   $scope.updatePlutchik = function(text) {
     var words = [];
-
     words = text.split(" ");
-
     var URLWord;
 
     for( var i = 0; i < words.length; i++ )
     {
-      if( URLWord != undefined )
+      if( i == 0 )
       {
         URLWord = (URLWord + "%20" + words[i]);
       }
