@@ -2,7 +2,6 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
   $rootScope.tab = "home"
 
   $scope.updateChart = function() {
-    console.log("Updating chart");
     $http.get("http://www.giedomak.nl:8008/data").success(function(response)
     {
       //we add data to the scope, we have the twitter mood data taken from a json file
@@ -25,6 +24,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
 
       for( var k = 0; k < response.length; k++ )
       {
+
         date = response[k].x;
         dateArray = date.split("/");
         newDate = (dateArray[1] + "/" + dateArray[0] + "/" + dateArray[2] );
@@ -47,14 +47,14 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
         $scope.data.push(
         {
           x: d[i],
-          joy: parseFloat(response[i].joy),
-          trust: parseFloat(response[i].trust),
-          fear: parseFloat(response[i].fear),
-          surprise: parseFloat(response[i].surprise),
-          sadness: parseFloat(response[i].sadness),
-          disgust: parseFloat(response[i].disgust),
-          anger: parseFloat(response[i].anger),
-          anticipation: parseFloat(response[i].anticipation),
+          joy: parseFloat(response[i].sadness),
+          trust: parseFloat(response[i].disgust),
+          fear: parseFloat(response[i].anger),
+          surprise: parseFloat(response[i].anticipation),
+          sadness: parseFloat(response[i].joy),
+          disgust: parseFloat(response[i].trust),
+          anger: parseFloat(response[i].fear),
+          anticipation: parseFloat(response[i].surprise),
           Stock: parseFloat(response[i].Stock),
           // Prediction: parseFloat(response[i].prediction),
         });
@@ -89,7 +89,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
         type: "area"
       }
     },
-    lineMode: 'cardinal',
+    lineMode: undefined,
     tension: 0.7,
     series: [{
       y: 'joy',
@@ -148,7 +148,6 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
     }
   }
 });
-
 function sortFunction(a, b)
 {
 }
