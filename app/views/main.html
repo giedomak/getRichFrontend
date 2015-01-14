@@ -4,7 +4,7 @@
     <br><br>
     <button class="btn btn-default" ng-click="updateChart()">Update</button>
     <br>
-    Total tweets analysed after filtering: {{totalanalysed}}
+    Total tweets analysed after filtering: {{totalanalysed}} from the total of {{dbsize}}
     <ul>
       <li ng-repeat="datapoint in totaltweets | orderBy:'x'">
         {{datapoint.x | date:'dd/MM/yyyy'}}: {{datapoint.total}}

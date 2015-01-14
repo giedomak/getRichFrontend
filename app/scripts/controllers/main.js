@@ -3,6 +3,10 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
 
   $scope.updateChart = function() {
     console.log("Updating chart");
+    $http.get("http://www.giedomak.nl:8008/dbsize").success(function(response)
+    {
+      $scope.dbsize = response;
+    });
     $http.get("http://www.giedomak.nl:8008/data").success(function(response)
     {
       //we add data to the scope, we have the twitter mood data taken from a json file
