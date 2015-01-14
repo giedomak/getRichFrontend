@@ -19,6 +19,9 @@ app.config(function($routeProvider) {
   }).when('/about', {
     templateUrl: 'views/about.html',
     controller: 'AboutCtrl'
+  }).when('/tweet', {
+    templateUrl: 'views/tweet.html',
+    controller: 'TweetCtrl'
   }).otherwise({
     redirectTo: '/'
   });
