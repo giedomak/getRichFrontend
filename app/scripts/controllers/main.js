@@ -41,12 +41,21 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
       }
       for(var i = 0; i < response.length; i++ )
       {
+        if( d[i] > new Date("2014/12/01") )
+        {
+          continue;
+        }
         if( parseFloat( response[i].Stock) == 0 )
         {
           if( i != 0 )
           {
             response[i].Stock = response[i-1].Stock;
           }
+        }
+        var prediction = 4500
+        if( parseFloat(response[i].prediction) != 0)
+        {
+          prediction = parseFloat(response[i].prediction);
         }
         $scope.data.push(
         {
@@ -60,7 +69,7 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
           anger: parseFloat(response[i].anger),
           anticipation: parseFloat(response[i].anticipation),
           Stock: parseFloat(response[i].Stock),
-          // Prediction: parseFloat(response[i].prediction),
+          Prediction: prediction,
         });
 
         $scope.totaltweets.push(
@@ -134,15 +143,14 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
       thickness: "6px",
       color: "#000000",
       type: "line",
+    }, {
+      stacks: [],
+      y: 'Prediction',
+      axis: 'y2',
+      thickness: '6px',
+      color: '#FF0000',
+      type: "line",
     }],
-    // }, {
-    //   stacks: [],
-    //   y: 'Prediction',
-    //   axis: 'y2',
-    //   thickness: '10px',
-    //   color: '#FF0000',
-    //   type: "line",
-    // }],
     tooltip: {
       mode: "scrubber",
       formatter: function(x, y1, series) {
