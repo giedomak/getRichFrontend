@@ -1,63 +1,57 @@
 angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope, $scope, $http) {
   $rootScope.tab = "home"
 
-  $scope.updateChart = function() {
-    console.log("Updating chart");
-    $http.get("http://www.giedomak.nl:8008/dbsize").success(function(response)
-    {
-      $scope.dbsize = response;
+  processData = function(response) {
+
+    //we add data to the scope, we have the twitter mood data taken from a json file
+    //so we linked the 8 moods to there corresponding date allong with the Stock data of that day.
+    var date;
+    var dateArray;
+    var newDate;
+    var d = [];
+    $scope.data = [];
+    $scope.totaltweets = [];
+    $scope.totalanalysed = 0;
+
+    response.sort(function(a,b) {
+      var a_date = a.x.split("/");
+      var new_a_date = new Date(a_date[1] + "/" + a_date[0] + "/" + a_date[2] );
+      var b_date = b.x.split("/");
+      var new_b_date = new Date(b_date[1] + "/" + b_date[0] + "/" + b_date[2] );
+      return (new_a_date.valueOf() - new_b_date.valueOf());
     });
-    $http.get("http://www.giedomak.nl:8008/data").success(function(response)
+
+    for( var k = 0; k < response.length; k++ )
     {
-      //we add data to the scope, we have the twitter mood data taken from a json file
-      //so we linked the 8 moods to there corresponding date allong with the Stock data of that day.
-      var date;
-      var dateArray;
-      var newDate;
-      var d = [];
-      $scope.data = [];
-      $scope.totaltweets = [];
-      $scope.totalanalysed = 0;
+      date = response[k].x;
+      dateArray = date.split("/");
+      newDate = (dateArray[1] + "/" + dateArray[0] + "/" + dateArray[2] );
+      d[k] = new Date(newDate);
+    }
 
-      response.sort(function(a,b) {
-        var a_date = a.x.split("/");
-        var new_a_date = new Date(a_date[1] + "/" + a_date[0] + "/" + a_date[2] );
-        var b_date = b.x.split("/");
-        var new_b_date = new Date(b_date[1] + "/" + b_date[0] + "/" + b_date[2] );
-        return (new_a_date.valueOf() - new_b_date.valueOf());
-      });
-
-      for( var k = 0; k < response.length; k++ )
+    if( parseFloat(response[0].Stock) == 0 )
+    {
+      response[0].Stock = 4527.69;
+    }
+    for(var i = 0; i < response.length; i++ )
+    {
+      if( d[i] > new Date("2014/12/01") )
       {
-        date = response[k].x;
-        dateArray = date.split("/");
-        newDate = (dateArray[1] + "/" + dateArray[0] + "/" + dateArray[2] );
-        d[k] = new Date(newDate);
+        continue;
       }
-
-      if( parseFloat(response[0].Stock) == 0 )
+      if( parseFloat( response[i].Stock) == 0 )
       {
-        response[0].Stock = 4527.69;
+        if( i != 0 )
+        {
+          response[i].Stock = response[i-1].Stock;
+        }
       }
-      for(var i = 0; i < response.length; i++ )
+      var prediction = 4500
+      if( parseFloat(response[i].prediction) != 0)
       {
-        if( d[i] > new Date("2014/12/01") )
-        {
-          continue;
-        }
-        if( parseFloat( response[i].Stock) == 0 )
-        {
-          if( i != 0 )
-          {
-            response[i].Stock = response[i-1].Stock;
-          }
-        }
-        var prediction = 4500
-        if( parseFloat(response[i].prediction) != 0)
-        {
-          prediction = parseFloat(response[i].prediction);
-        }
-        $scope.data.push(
+        prediction = parseFloat(response[i].prediction);
+      }
+      $scope.data.push(
         {
           x: d[i],
           joy: parseFloat(response[i].joy),
@@ -73,12 +67,32 @@ angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope,
         });
 
         $scope.totaltweets.push(
-        {
-          x: d[i],
-          total: parseInt(response[i].total)
-        });
-        $scope.totalanalysed += parseInt(response[i].total);
-      }
+          {
+            x: d[i],
+            total: parseInt(response[i].total)
+          });
+          $scope.totalanalysed += parseInt(response[i].total);
+        }
+        $scope.$apply();
+  };
+
+  $scope.updateChart = function() {
+    console.log("Updating chart");
+    $http.get("http://www.giedomak.nl:8008/dbsize").success(function(response)
+    {
+      $scope.dbsize = response;
+    });
+    $http.get("http://www.giedomak.nl:8008/data")
+    .success(function(response)
+    {
+      processData(response);
+    })
+    .error(function()
+    {
+      $.getJSON("data.json", function(response) {
+        processData(response);
+      });
+      console.log("fail in giedomak, using local data");
     });
 
   };
