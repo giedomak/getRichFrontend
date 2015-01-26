@@ -1,7 +1,7 @@
 angular.module("getRichFrontendApp").controller('MainCtrl', function($rootScope, $scope, $http) {
   $rootScope.tab = "home"
 
-  processData = function(response) {
+  var processData = function(response) {
 
     //we add data to the scope, we have the twitter mood data taken from a json file
     //so we linked the 8 moods to there corresponding date allong with the Stock data of that day.
